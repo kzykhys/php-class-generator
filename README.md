@@ -1,4 +1,4 @@
-PHP Class Generator
+PHP Class Generator [![Build Status](https://travis-ci.org/kzykhys/php-class-generator.png)](https://travis-ci.org/kzykhys/php-class-generator)
 ===================
 
 Generate PSR compliant classes from plain text document
