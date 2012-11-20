@@ -3,6 +3,11 @@ PHP Class Generator
 
 Generate PSR compliant classes from plain text document
 
+Requirements
+------------
+
+* PHP 5.3.3 +
+
 Installation
 ------------
 
@@ -39,7 +44,7 @@ KzykHys\ClassGenerator\Sample < KzykHys\ClassGenerator\Container << \IteratorAgg
 - options:array
 - generator:Generator[get set]
 + __construct(options:array)
-+ generate(document:string):\KzykHys\ClassGenerator\Compiler\StreamWriter
++ generate(document:string version:string):\KzykHys\ClassGenerator\Compiler\StreamWriter
 + getString():string > Returns the code as a string
 + write(filename:string) > Write the code to file
 + count():integer
@@ -110,10 +115,11 @@ class Sample extends Container implements \IteratorAggrigate, \Countable {
 
     /**
      * @param string $document
+     * @param string $version
      *
      * @return \KzykHys\ClassGenerator\Compiler\StreamWriter
      */
-    public function generate($document)
+    public function generate($document, $version)
     {
         
     }
@@ -206,6 +212,13 @@ The Syntax
 %MethodVisibility% %MethodName% (%Argument% : %ArgumentType%) : %ReturnType%
 ```
 
+* ``%MethodVisibility%`` is required
+* ``%MethodVisibility%`` takes ``+`` as public ``#`` as protected ``-`` as private
+* ``%MethodName%`` is required
+* Braces ``()`` are required (even if there is no argument)
+* ``%Argument%`` and ``%ArgumentType%`` is optional
+* ``%ReturnType%`` is optional
+
 Write a Readable Document
 -------------------------
 
@@ -228,7 +241,8 @@ KzykHys\ClassGenerator\Sample < KzykHys\ClassGenerator\Container << \IteratorAgg
 - generator : Generator[get set]
 
 +   __construct(options:array)
-+    generate(document:string) : \KzykHys\ClassGenerator\Compiler\StreamWriter
++    generate(document:string
+               version:string) : \KzykHys\ClassGenerator\Compiler\StreamWriter
 +                  getString() : string
                                > Returns the code as a string
 +       write(filename:string)
@@ -236,6 +250,29 @@ KzykHys\ClassGenerator\Sample < KzykHys\ClassGenerator\Container << \IteratorAgg
 +                      count() : integer
 #          traverseContainer() : Container
 ```
+
+Build Phar Archive
+------------------
+
+You can build phar archive from source code by following command
+
+```
+php-cg build
+```
+
+If fails like this
+
+```
+  [UnexpectedValueException]
+  creating archive "php-cg.phar" disabled by the php.ini setting phar.readonly
+```
+
+Run following
+
+```
+php -d phar.readonly=0 php-cg build
+```
+
 
 Notes
 -----
