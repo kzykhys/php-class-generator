@@ -280,4 +280,4 @@ Notes
 
 Author
 ------
-Kazuyuki Hayashi <hayashi@siance.co.jp>
+Kazuyuki Hayashi <hayashi@valnur.net>
