@@ -60,6 +60,7 @@ EOF
         $this->assertInstanceOf($className, $stream->expect(Lexer::TOKEN_WTSP)); // 
         $this->assertInstanceOf($className, $stream->expect(Lexer::TOKEN_NODE)); // PUBLIC
         $this->assertInstanceOf($className, $stream->expect(Lexer::TOKEN_TYPE)); // :
+        $this->assertInstanceOf($className, $stream->expect(Lexer::TOKEN_NODE)); // TYPE
     }
     
 }
