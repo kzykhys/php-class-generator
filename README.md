@@ -13,9 +13,7 @@ Installation
 
 ### Download phar
 
-```
-$ curl -s http://getpcg.valnur.net/download | php
-```
+[Download php-cg.phar](https://github.com/downloads/kzykhys/php-class-generator/php-cg.phar) and store anywhere.
 
 ### via Composer
 
