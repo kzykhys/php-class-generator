@@ -1,7 +1,7 @@
 <?php
 /**
  * This software is licensed under MIT License
- * 
+ *
  * Copyright (c) 2012, Kazuyuki Hayashi
  */
 
