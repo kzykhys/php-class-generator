@@ -1,0 +1,22 @@
+{
+    "name": "kzykhys/php-class-generator",
+    "type": "application",
+    "description": "Generate PSR compliant classes from plain text document",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kazuyuki Hayashi",
+            "email": "hayashi@valnur.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/console": "2.1.*",
+        "symfony/filesystem": "2.1.*",
+        "symfony/finder": "2.1.*"
+    },
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "bin": ["php-cg"]
+}

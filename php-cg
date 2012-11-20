@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This software is licensed under MIT License
+ * 
+ * Copyright (c) 2012, Kazuyuki Hayashi
+ */
+
+use KzykHys\ClassGenerator\Console\Application;
+
+require_once(__DIR__.'/vendor/autoload.php');
+
+$app = new Application();
+$app->run();
