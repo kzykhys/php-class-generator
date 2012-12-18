@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>php-class-generator by kzykhys</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">php-class-generator</h1>
+        <p class="header">Generate PSR compliant classes from plain text document</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/kzykhys/php-class-generator/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/kzykhys/php-class-generator/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/kzykhys/php-class-generator">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/kzykhys">kzykhys</a></p>
+
+
+      </header>
+      <section>
+        <h1>PHP Class Generator <a href="https://travis-ci.org/kzykhys/php-class-generator"><img src="https://travis-ci.org/kzykhys/php-class-generator.png" alt="Build Status"></a>
+</h1>
+
+<p>Generate PSR compliant classes from plain text document</p>
+
+<h2>Requirements</h2>
+
+<ul>
+<li>PHP 5.3.3 +</li>
+</ul><h2>Installation</h2>
+
+<h3>Download phar</h3>
+
+<p><a href="https://github.com/downloads/kzykhys/php-class-generator/php-cg.phar">Download php-cg.phar</a> and store anywhere.</p>
+
+<h3>via Composer</h3>
+
+<pre><code>{
+    "require": {
+        "kzykhys/php-class-generator": "dev-master"
+    }
+}
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>Write your class and save the text file to *.pcg (Syntax is described below)
+For example <code>./doc/myclass.pcg</code></p>
+
+<pre><code>KzykHys\ClassGenerator\Sample &lt; KzykHys\ClassGenerator\Container &lt;&lt; \IteratorAggrigate \Countable
+&gt; The sample of PHP Class Generator
+&gt; Generates PHP classes from plain text document (*.pcg)
++ iterator:\ArrayIterator
+# container:array
+# length:integer[get set] &gt; The length of code
+# compiled:boolean[is set] &gt; Whether this class is compiled or not
+- options:array
+- generator:Generator[get set]
++ __construct(options:array)
++ generate(document:string version:string):\KzykHys\ClassGenerator\Compiler\StreamWriter
++ getString():string &gt; Returns the code as a string
++ write(filename:string) &gt; Write the code to file
++ count():integer
+# traverseContainer():Container
+</code></pre>
+
+<p>Run the command</p>
+
+<pre><code>$ php php-pcg.phar --from ./doc --to ./src
+</code></pre>
+
+<p>PHP file will be generated to <code>./src/Full/Qualified/ClassName.php</code></p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">KzykHys\ClassGenerator</span><span class="p">;</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * The sample of PHP Class Generator</span>
+<span class="sd"> * Generates PHP classes from plain text document (*.pcg)</span>
+<span class="sd"> */</span>
+<span class="k">class</span> <span class="nc">Sample</span> <span class="k">extends</span> <span class="nx">Container</span> <span class="k">implements</span> <span class="nx">\IteratorAggrigate</span><span class="p">,</span> <span class="nx">\Countable</span> <span class="p">{</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * @var \ArrayIterator $iterator</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="nv">$iterator</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * @var array $container</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="nv">$container</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * The length of code</span>
+<span class="sd">     * </span>
+<span class="sd">     * @var integer $length</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="nv">$length</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Whether this class is compiled or not</span>
+<span class="sd">     * </span>
+<span class="sd">     * @var boolean $compiled</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="nv">$compiled</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * @var array $options</span>
+<span class="sd">     */</span>
+    <span class="k">private</span> <span class="nv">$options</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * @var Generator $generator</span>
+<span class="sd">     */</span>
+    <span class="k">private</span> <span class="nv">$generator</span><span class="p">;</span>
+
+
+    <span class="sd">/**</span>
+<span class="sd">     * @param array $options</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="k">array</span> <span class="nv">$options</span><span class="p">)</span>
+    <span class="p">{</span>
+
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * @param string $document</span>
+<span class="sd">     * @param string $version</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return \KzykHys\ClassGenerator\Compiler\StreamWriter</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">generate</span><span class="p">(</span><span class="nv">$document</span><span class="p">,</span> <span class="nv">$version</span><span class="p">)</span>
+    <span class="p">{</span>
+
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Returns the code as a string</span>
+<span class="sd">     * </span>
+<span class="sd">     *</span>
+<span class="sd">     * @return string</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getString</span><span class="p">()</span>
+    <span class="p">{</span>
+
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Write the code to file</span>
+<span class="sd">     * </span>
+<span class="sd">     * @param string $filename</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">write</span><span class="p">(</span><span class="nv">$filename</span><span class="p">)</span>
+    <span class="p">{</span>
+
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return integer</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">count</span><span class="p">()</span>
+    <span class="p">{</span>
+
+    <span class="p">}</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return Container</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">traverseContainer</span><span class="p">()</span>
+    <span class="p">{</span>
+
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+
+<h2>The Syntax</h2>
+
+<h3>Overview</h3>
+
+<ul>
+<li>Class Definition (required)</li>
+<li>Field Definition (optionai)</li>
+<li>Method Definition (optional)</li>
+</ul><h3>Class Definition (required)</h3>
+
+<pre><code>%ClassName% &lt; %BaseClassName% &lt;&lt; %InterfaceName% %InterfaceName% &gt; %Comment%
+&gt; %Comment%
+</code></pre>
+
+<ul>
+<li>
+<code>%ClassName%</code> is required
+** If your class is in the namespace, <code>%ClassName%</code> will be like this <code>\\Namespace\\Package\\ClassName</code>
+</li>
+<li>
+<code>&lt;</code> represents <code>extends</code>
+</li>
+<li>
+<code>%BaseClassName%</code> is optional</li>
+<li>
+<code>&lt;&lt;</code> represents <code>implements</code>
+</li>
+<li>
+<code>%InterfaceName%</code> is optional</li>
+<li>
+<code>&gt;</code> starts comment to end of the line</li>
+<li>You can place comments to same line and next line of class definition</li>
+</ul><h3>Field Definition (optional)</h3>
+
+<pre><code>%FieldVisibility% %FieldName% : %FieldType% \[%FieldAccessor%\] &gt; %Comment%
+&gt; %Comment%
+</code></pre>
+
+<ul>
+<li>
+<code>%FieldVisibility%</code> is required</li>
+<li>
+<code>%FieldVisibility%</code> takes <code>+</code> as public <code>#</code> as protected <code>-</code> as private</li>
+<li>
+<code>%FieldName%</code> is required</li>
+<li>
+<code>%FieldType%</code> is optional</li>
+<li>
+<code>%FieldAccessor%</code> takes <code>set</code>, <code>bind</code> as setter, <code>get</code>, <code>is</code> as getter</li>
+<li>
+<code>&gt;</code> starts comment to end of the line</li>
+<li>You can place comments to same line and next line of field definition</li>
+</ul><h3>Method Definition (optionai)</h3>
+
+<pre><code>%MethodVisibility% %MethodName% (%Argument% : %ArgumentType%) : %ReturnType%
+</code></pre>
+
+<ul>
+<li>
+<code>%MethodVisibility%</code> is required</li>
+<li>
+<code>%MethodVisibility%</code> takes <code>+</code> as public <code>#</code> as protected <code>-</code> as private</li>
+<li>
+<code>%MethodName%</code> is required</li>
+<li>Braces <code>()</code> are required (even if there is no argument)</li>
+<li>
+<code>%Argument%</code> and <code>%ArgumentType%</code> is optional</li>
+<li>
+<code>%ReturnType%</code> is optional</li>
+</ul><h2>Write a Readable Document</h2>
+
+<p>You can use any white spaces to write a readable document</p>
+
+<p>Following code is same as the code used in Usage</p>
+
+<pre><code>KzykHys\ClassGenerator\Sample &lt; KzykHys\ClassGenerator\Container &lt;&lt; \IteratorAggrigate \Countable
+    &gt; The sample of PHP Class Generator
+    &gt; Generates PHP classes from plain text document (*.pcg)
+
++  iterator : \ArrayIterator
+# container : array
+#    length : integer[get set]
+            &gt; The length of code
+#  compiled : boolean[is set]
+            &gt; Whether this class is compiled or not
+-   options : array
+- generator : Generator[get set]
+
++   __construct(options:array)
++    generate(document:string
+               version:string) : \KzykHys\ClassGenerator\Compiler\StreamWriter
++                  getString() : string
+                               &gt; Returns the code as a string
++       write(filename:string)
+                               &gt; Write the code to file
++                      count() : integer
+#          traverseContainer() : Container
+</code></pre>
+
+<h2>Build Phar Archive</h2>
+
+<p>You can build phar archive from source code by following command</p>
+
+<pre><code>php-cg build
+</code></pre>
+
+<p>If fails like this</p>
+
+<pre><code>  [UnexpectedValueException]
+  creating archive "php-cg.phar" disabled by the php.ini setting phar.readonly
+</code></pre>
+
+<p>Run following</p>
+
+<pre><code>php -d phar.readonly=0 php-cg build
+</code></pre>
+
+<h2>Notes</h2>
+
+<ul>
+<li>Class constant is not supported yet.</li>
+<li>Implementation of interface is not generated automatically.</li>
+</ul><h2>Author</h2>
+
+<p>Kazuyuki Hayashi <a href="mailto:hayashi@valnur.net">hayashi@valnur.net</a></p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
