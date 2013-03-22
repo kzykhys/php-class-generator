@@ -280,4 +280,4 @@ Notes
 
 Author
 ------
-Kazuyuki Hayashi <hayashi@valnur.net>
+Kazuyuki Hayashi (@kzykhys)
