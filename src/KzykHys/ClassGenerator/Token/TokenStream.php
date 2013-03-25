@@ -83,6 +83,8 @@ class TokenStream implements \IteratorAggregate
      *
      * @param string $type Type of token
      *
+     * @throws \LogicException
+     *
      * @return Token
      */
     public function expect($type)
@@ -93,7 +95,7 @@ class TokenStream implements \IteratorAggregate
                 $type = implode(' or ', $type);
             }
             $actual = sprintf('<%s:%s>', $token->getType(), $token->getValue());
-            throw new \Exception(sprintf('Syntax Error: %s expected %s given at line %d', $type, $actual, $token->getLine()));
+            throw new \LogicException(sprintf('Syntax Error: %s expected %s given at line %d', $type, $actual, $token->getLine()));
         }
         $this->next();
 
@@ -121,7 +123,7 @@ class TokenStream implements \IteratorAggregate
     /**
      * @internal
      */
-    protected function compareType($token, $type)
+    protected function compareType(Token $token, $type)
     {
         if (!is_array($type)) {
             $type = array($type);

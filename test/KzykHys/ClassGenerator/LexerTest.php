@@ -19,7 +19,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
     {
         $lexer = new Lexer();
         $stream = $lexer->tokenize(
-            /* line01: */ "\Node\Node < Node\Node << Node \Node\Node\Node > COMMENT\n" .
+            /* line01: */ "\\Node\\Node < Node\\Node << Node \\Node\\Node\\Node > COMMENT\n" .
             /* line02: */ "> TOKEN INSIDE COMMENT < << : () [] \n" .
             /* line03: */ "+ PUBLIC:TYPE[set get is bind] > COMMENT\n" .
             /* line04: */ "# PROTECTED[set get] > COMMENT\n" .

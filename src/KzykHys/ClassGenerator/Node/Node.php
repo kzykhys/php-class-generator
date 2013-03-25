@@ -53,6 +53,8 @@ class Node
     /**
      * Returns true if type is matched
      *
+     * @param string $type
+     *
      * @return boolean
      */
     public function is($type)

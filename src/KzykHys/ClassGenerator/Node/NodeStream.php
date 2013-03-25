@@ -67,6 +67,8 @@ class NodeStream implements \IteratorAggregate
      *
      * @param string $type Type of node
      *
+     * @throws \LogicException
+     *
      * @return Node
      */
     public function expect($type)
@@ -77,7 +79,7 @@ class NodeStream implements \IteratorAggregate
                 $type = implode(' or ', $type);
             }
             $actual = sprintf('<%s:%s>', $node->getType(), $node->getValue());
-            throw new \Exception(sprintf('Syntax Error: %s expected %s given', $type, $actual));
+            throw new \LogicException(sprintf('Syntax Error: %s expected %s given', $type, $actual));
         }
         $this->next();
 
@@ -95,7 +97,7 @@ class NodeStream implements \IteratorAggregate
     /**
      * @internal
      */
-    protected function compareType($node, $type)
+    protected function compareType(Node $node, $type)
     {
         if (!is_array($type)) {
             $type = array($type);

@@ -96,8 +96,8 @@ class NodeParser
     /**
      * Parses property nodes
      *
-     * @param ClassBuilder $builder ClassBuilder object
-     * @param NodeStream   $stream  NodeStream object
+     * @param ClassBuilder $classBuilder ClassBuilder object
+     * @param NodeStream   $stream       NodeStream object
      */
     protected function parseProperty(ClassBuilder $classBuilder, NodeStream $stream)
     {
@@ -139,8 +139,8 @@ class NodeParser
     /**
      * Parses method nodes
      *
-     * @param ClassBuilder $builder ClassBuilder object
-     * @param NodeStream   $stream  NodeStream object
+     * @param ClassBuilder $classBuilder ClassBuilder object
+     * @param NodeStream   $stream       NodeStream object
      */
     protected function parseMethod(ClassBuilder $classBuilder, NodeStream $stream)
     {

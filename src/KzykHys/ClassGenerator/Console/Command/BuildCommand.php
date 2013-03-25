@@ -50,6 +50,7 @@ class BuildCommand extends Command
         $finder = new Finder();
         $finder->files('*.php')->exclude(array('test', 'build'))->in(array('src', 'vendor'));
         foreach ($finder as $file) {
+            /* @var \Symfony\Component\Finder\SplFileInfo $file */
             $path = str_replace(dirname(realpath(__DIR__.'/../../../../../php-cg')).DIRECTORY_SEPARATOR, '', $file->getRealPath());
             $path = str_replace('\\', '/', $path);
             $phar->addFromString($path, file_get_contents($file->getRealPath()));

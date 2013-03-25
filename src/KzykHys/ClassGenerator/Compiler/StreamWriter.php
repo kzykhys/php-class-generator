@@ -50,9 +50,9 @@ class StreamWriter
      * Writes a string with format
      *
      * @param string $str
-     * @param mixed  $args ...
+     * @param mixed  $args ... {@see http://jp2.php.net/manual/en/function.sprintf.php}
      *
-     * {@see http://jp2.php.net/manual/en/function.sprintf.php}
+     * @throws \OutOfBoundsException
      *
      * @return StreamWriter
      */
@@ -83,10 +83,10 @@ class StreamWriter
     /**
      * Writes a line with format
      *
-     * @param string $str
-     * @param mixed  $args ...
+     * @param integer $line
+     * @param mixed   $args ... {@see      http://jp2.php.net/manual/en/function.sprintf.php}
      *
-     * {@see http://jp2.php.net/manual/en/function.sprintf.php}
+     * @throws \OutOfBoundsException
      *
      * @return StreamWriter
      */

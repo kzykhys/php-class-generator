@@ -43,15 +43,14 @@ class GenerateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $generator = new ClassGenerator();
-
         $from = rtrim($input->getOption('from'), '/') . '/';
         $to = rtrim($input->getOption('to'), '/') . '/';
 
         $finder = new Finder();
-        $finder->files()->name('*.pcg')->in($input->getOption('from'));
+        $finder->files()->name('*.pcg')->in($from);
 
         foreach ($finder as $file) {
+            /* @var \Symfony\Component\Finder\SplFileInfo $file */
             $this->generate($to, $file->getRealPath());
         }
     }
@@ -81,6 +80,8 @@ class GenerateCommand extends Command
      *
      * @param string $path      The path to generate classes
      * @param string $namespace The namespace of the class
+     *
+     * @throws \Exception
      *
      * @return string Directory name
      */

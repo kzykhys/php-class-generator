@@ -8,6 +8,8 @@
 namespace KzykHys\ClassGenerator\Compiler;
 
 use KzykHys\ClassGenerator\Builder\ClassBuilder;
+use KzykHys\ClassGenerator\Builder\MethodBuilder;
+use KzykHys\ClassGenerator\Builder\PropertyBuilder;
 
 /**
  * Compiles ClassBuilder instance to PHP class
@@ -119,6 +121,8 @@ class Compiler
     protected function compilePropertyDefinitions(ClassBuilder $builder, StreamWriter $writer)
     {
         foreach ($builder->getProperties() as $property) {
+            /* @var PropertyBuilder $property */
+
             $writer->indent()->writeLine('/**');
             $comments = $property->getComments();
             if (count($comments)) {
@@ -158,8 +162,9 @@ class Compiler
     {
 
         foreach ($builder->getMethods() as $method) {
-            $writer->indent()
-                ->writeLine('/**');
+            /* @var MethodBuilder $method */
+
+            $writer->indent()->writeLine('/**');
 
             $comments = $method->getComments();
             if (count($comments)) {
@@ -222,21 +227,22 @@ class Compiler
     /**
      * Split long class name to namespace and class name
      *
-     * @param ClassBuilder $builder
-     * @param StreamWriter $writer
+     * @param string $className
+     *
+     * @throws \Exception
      *
      * @return array An array includes keys below [namespace, classname, fqcn]
      */
-    public function parseClassName($classname)
+    public function parseClassName($className)
     {
-        if (!preg_match('/^\\\\?(.*?)\\\\?([a-zA-Z0-9_]+)$/', $classname, $matches)) {
-            throw new \Exception('Invalid class name "' . $classname . '" given');
+        if (!preg_match('/^\\\\?(.*?)\\\\?([a-zA-Z0-9_]+)$/', $className, $matches)) {
+            throw new \Exception('Invalid class name "' . $className . '" given');
         }
 
         return array(
             'namespace' => $matches[1],
             'classname' => $matches[2],
-            'fqcn' => $classname
+            'fqcn'      => $className
         );
     }
 

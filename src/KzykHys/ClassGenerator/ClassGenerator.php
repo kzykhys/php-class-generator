@@ -7,6 +7,7 @@
 
 namespace KzykHys\ClassGenerator;
 
+use KzykHys\ClassGenerator\Compiler\StreamWriter;
 use KzykHys\ClassGenerator\Lexer;
 use KzykHys\ClassGenerator\Parser\TokenParser;
 use KzykHys\ClassGenerator\Parser\NodeParser;
@@ -65,7 +66,7 @@ class ClassGenerator
     /**
      * Returns ClassBuilder
      *
-     * @return KzykHys\ClassGenerator\Builder\ClassBuilder
+     * @return \KzykHys\ClassGenerator\Builder\ClassBuilder
      */
     public function getClassBuilder()
     {

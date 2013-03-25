@@ -76,7 +76,8 @@ class Lexer
     public function tokenize($code)
     {
         $this->tokens = array();
-        $lines = preg_split('/\r?\n/', $code);
+        $lines        = preg_split('/\r?\n/', $code);
+        $number       = 0;
 
         foreach ($lines as $number => $fragment) {
             $this->processLine($number + 1, $fragment);
@@ -90,16 +91,18 @@ class Lexer
     /**
      * Parses a line
      *
-     * @param integer $linenum  Number of line
+     * @param integer $lineNum  Number of line
      * @param string  $fragment A piece of code
+     *
+     * @throws \Exception
      */
-    protected function processLine($linenum, $fragment)
+    protected function processLine($lineNum, $fragment)
     {
-        $code   = $fragment;
         $offset = 0;
+
         while ($offset < strlen($fragment)) {
-            if (($token = $this->match(substr($fragment, $offset), $linenum)) === false) {
-                throw new \Exception('Parse error at line ' . $linenum . ' offset ' . $offset);
+            if (($token = $this->match(substr($fragment, $offset), $lineNum)) === false) {
+                throw new \Exception('Parse error at line ' . $lineNum . ' offset ' . $offset);
             }
             $this->tokens[] = $token;
             $offset += $token->getLength();

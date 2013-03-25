@@ -141,6 +141,8 @@ class PropertyBuilder
      * Adds accessor
      *
      * @param string $accessor
+     *
+     * @throws \InvalidArgumentException
      */
     public function addAccessor($accessor)
     {
@@ -149,7 +151,7 @@ class PropertyBuilder
         } elseif (in_array($accessor, $this->accessorDefaults['setter'])) {
             $this->addSetter($accessor);
         } else {
-            throw new \Exception(sprintf('Unexpected property accessor "%s" available accessors are [get,is,bind,set]', $accessor));
+            throw new \InvalidArgumentException(sprintf('Unexpected property accessor "%s" available accessors are [get,is,bind,set]', $accessor));
         }
 
     }

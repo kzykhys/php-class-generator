@@ -8,6 +8,7 @@
 namespace KzykHys\ClassGenerator\Parser;
 
 use KzykHys\ClassGenerator\Lexer;
+use KzykHys\ClassGenerator\Token\Token;
 use KzykHys\ClassGenerator\Token\TokenStream;
 use KzykHys\ClassGenerator\Node\Node;
 use KzykHys\ClassGenerator\Node\NodeStream;
@@ -146,6 +147,8 @@ class TokenParser
      * @param TokenStream $stream     TokenStream object
      * @param Token       $visibility Token <TOKEN_PUBL> or <TOKEN_PROT> or <TOKEN_PRIV>
      * @param Token       $name       Token <TOKEN_NODE>
+     *
+     * @throws \Exception
      */
     protected function parseProperty(TokenStream $stream, $visibility, $name)
     {
